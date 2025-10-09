@@ -1,0 +1,4 @@
+# Pour Python 3.13+
+# moviepy remplace pydub pour le découpage audio
+moviepy==1.0.3
+requests==2.31.0

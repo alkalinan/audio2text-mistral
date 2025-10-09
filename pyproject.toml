@@ -1,0 +1,13 @@
+[project]
+name = "audio2text-mistral"
+version = "0.1.0"
+description = "Script de transcription audio MP4 en texte via Mistral, avec découpage automatique."
+authors = ["TonNom <ton.email@example.com>"]
+
+[tool.poetry.dependencies]
+pydub = "^0.25.1"
+requests = "^2.31.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -8,10 +8,13 @@ Script Python pour transformer un fichier audio (MP4, MP3, WAV...) en texte via 
 - ffmpeg installé sur le système (utilisé par pydub)
 - Dépendances Python :
   - pydub
-  - requests
+
+
 
 Installation des dépendances :
+
 ```sh
+
 pip install -r requirements.txt
 ```
 
@@ -19,13 +22,18 @@ pip install -r requirements.txt
 - macOS :
   ```sh
   brew install ffmpeg
+
   ```
+
 - Ubuntu/Debian :
+
   ```sh
   sudo apt-get install ffmpeg
   ```
 - Windows :
   Télécharger sur https://ffmpeg.org/download.html et ajouter à votre PATH.
+
+
 
 ## Utilisation
 

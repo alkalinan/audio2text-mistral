@@ -17,7 +17,7 @@ def extract_audio(video_path, output_audio_path=None):
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python extract_audio.py <chemin_video> [chemin_audio_sortie]")
+        print("Usage: python video2audio.py <chemin_video> [chemin_audio_sortie]")
         sys.exit(1)
     video_path = sys.argv[1]
     output_audio_path = sys.argv[2] if len(sys.argv) > 2 else None

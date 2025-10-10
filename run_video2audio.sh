@@ -5,7 +5,7 @@ VIDEO_FILE="$1"
 OUTPUT_AUDIO="$2"
 
 if [ -z "$VIDEO_FILE" ]; then
-  echo "Usage: ./run_extract_audio.sh <chemin_video> [chemin_audio_sortie]"
+  echo "Usage: ./run_video2audio.sh <chemin_video> [chemin_audio_sortie]"
   exit 1
 fi
 
@@ -29,7 +29,7 @@ if [ -z "$OUTPUT_AUDIO" ]; then
 fi
 
 # Lance le script Python
-python extract_audio.py "$VIDEO_FILE" "$OUTPUT_AUDIO"
+python video2audio.py "$VIDEO_FILE" "$OUTPUT_AUDIO"
 
 # Désactive l'environnement virtuel
 deactivate

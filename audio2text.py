@@ -19,6 +19,8 @@ def split_audio(file_path, segment_length_sec=15*60):
     audio.close()
     return segments
 
+import json
+
 def transcribe_audio(file_path, api_key, model="voxtral-mini-2507", language="fr"):
     url = "https://api.mistral.ai/v1/audio/transcriptions"
     headers = {
@@ -32,7 +34,12 @@ def transcribe_audio(file_path, api_key, model="voxtral-mini-2507", language="fr
     response = requests.post(url, headers=headers, files=files)
     files["file"].close()
     if response.status_code == 200:
-        return response.text
+        try:
+            data = response.json()
+            return data.get("text", "")
+        except Exception as e:
+            print(f"Erreur de parsing JSON: {e}")
+            return ""
     else:
         print(f"Erreur API: {response.status_code} - {response.text}")
         return ""

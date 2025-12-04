@@ -1,5 +1,3 @@
-
-# Fusion Mistral & OpenAI
 import os
 import sys
 import requests
@@ -21,30 +19,7 @@ def split_audio(file_path, segment_length_sec=10*60):
     audio.close()
     return segments
 
-def transcribe_audio_mistral(file_path, api_key, model="voxtral-mini-latest", language="fr"):
-    url = "https://api.mistral.ai/v1/audio/transcriptions"
-    headers = {
-        "x-api-key": api_key
-    }
-    files = {
-        "file": open(file_path, "rb"),
-        "model": (None, model),
-        "language": (None, language)
-    }
-    response = requests.post(url, headers=headers, files=files)
-    files["file"].close()
-    if response.status_code == 200:
-        try:
-            data = response.json()
-            return data.get("text", "")
-        except Exception as e:
-            print(f"Erreur de parsing JSON: {e}")
-            return ""
-    else:
-        print(f"Erreur API: {response.status_code} - {response.text}")
-        return ""
-
-def transcribe_audio_openai(file_path, api_key, model="whisper-1", language="fr"):
+def transcribe_audio_openai(file_path, api_key, model="gpt-4o-transcribe", language="fr"):
     url = "https://api.openai.com/v1/audio/transcriptions"
     headers = {
         "Authorization": f"Bearer {api_key}"
@@ -68,24 +43,16 @@ def transcribe_audio_openai(file_path, api_key, model="whisper-1", language="fr"
         return ""
 
 def main():
-    if len(sys.argv) < 4:
-        print("Usage: python audio2text.py <audio_file> <api_key> <api>")
-        print("api: 'mistral' ou 'openai'")
+    if len(sys.argv) < 3:
+        print("Usage: python audio2text_openai.py <audio_file> <openai_api_key>")
         sys.exit(1)
     audio_file = sys.argv[1]
     api_key = sys.argv[2]
-    api = sys.argv[3].lower()
     segments = split_audio(audio_file)
     full_text = ""
     for seg in segments:
         print(f"Transcription du segment: {seg}")
-        if api == "mistral":
-            text = transcribe_audio_mistral(seg, api_key)
-        elif api == "openai":
-            text = transcribe_audio_openai(seg, api_key)
-        else:
-            print("API non reconnue. Utilisez 'mistral' ou 'openai'.")
-            sys.exit(1)
+        text = transcribe_audio_openai(seg, api_key)
         full_text += text + "\n"
         os.remove(seg)
     output_file = os.path.splitext(audio_file)[0] + "_transcript.txt"

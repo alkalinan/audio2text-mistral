@@ -37,8 +37,21 @@ pip install -r requirements.txt
 
 ## Utilisation
 
+Le script fusionné permet de choisir entre l'API Mistral ou OpenAI pour la transcription.
+
+### Ligne de commande Python
+
 ```sh
-python audio2text.py <chemin_fichier_audio> <votre_api_key>
+python audio2text.py <chemin_fichier_audio> <votre_api_key> <api>
+```
+- `<chemin_fichier_audio>` : chemin vers le fichier audio à transcrire (MP3, WAV, MP4...)
+- `<votre_api_key>` : clé API Mistral ou OpenAI
+- `<api>` : `mistral` ou `openai`
+
+Exemples :
+```sh
+python audio2text.py monaudio.mp3 sk-xxxxxx mistral
+python audio2text.py monaudio.mp3 sk-xxxxxx openai
 ```
 
 ## Extraction de l'audio depuis une vidéo
@@ -61,24 +74,22 @@ Si le chemin de sortie n'est pas donné, le fichier audio est créé dans le mê
 
 ## Transcription audio en texte
 
-### Commandes pour lancer le script bash
+
+### Script bash
 
 ```sh
 chmod +x run_audio2text.sh
-./run_audio2text.sh <chemin_fichier_audio> <votre_api_key>
+./run_audio2text.sh <chemin_fichier_audio> <votre_api_key> <api>
 ```
 - `<chemin_fichier_audio>` : chemin vers le fichier audio à transcrire (MP3, WAV, MP4...)
-- `<votre_api_key>` : clé API Mistral
+- `<votre_api_key>` : clé API Mistral ou OpenAI
+- `<api>` : `mistral` ou `openai`
 
-Le script découpe l'audio en segments, les transcrit via l'API Mistral et regroupe le texte dans un fichier.
+Le script découpe l'audio en segments, les transcrit via l'API choisie et regroupe le texte dans un fichier.
 Le script :
-1. Découpe l’audio en segments de 15 minutes maximum.
-2. Transcrit chaque segment via l’API Mistral.
+1. Découpe l’audio en segments de 10 minutes maximum.
+2. Transcrit chaque segment via l’API choisie.
 3. Regroupe les textes dans un fichier `<nom_audio>_transcript.txt`.
-
-```sh
-python audio2text.py path/to/audio-file.mp4 MISTRAL-API-KEY
-```
 
 ## Configuration du projet
 
